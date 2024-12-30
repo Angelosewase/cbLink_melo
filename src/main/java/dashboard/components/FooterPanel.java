@@ -6,11 +6,11 @@ import java.awt.*;
 public class FooterPanel extends JPanel {
     public FooterPanel() {
         setLayout(new BorderLayout());
-        setBackground(Color.DARK_GRAY);
+        setBackground(new Color(1,0,102,255));
 
-        JLabel footerText = new JLabel("©2024 CB-Link Ltd. All Rights Reserved.", SwingConstants.CENTER);
+        JLabel footerText = new JLabel("©2024 CB-Link Ltd. Melo software V2 .All rights reserved", SwingConstants.CENTER);
         footerText.setForeground(Color.WHITE);
-        footerText.setFont(new Font("Arial", Font.PLAIN, 12));
+        footerText.setFont(new Font("Arial", Font.PLAIN, 14));
 
         add(footerText, BorderLayout.CENTER);
     }
