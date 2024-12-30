@@ -35,7 +35,6 @@ public class GraphicsComboBox extends JPanel {
         comboBox.setForeground(Color.BLUE);// Set text color to blue
         comboBox.setPreferredSize(null);
         comboBox.setFont(new Font("Arial", Font.PLAIN, 22));
-        comboBox.setEditable(true);
         add(comboBox, BorderLayout.CENTER);
     }
 }

@@ -6,29 +6,41 @@ import java.awt.*;
 public class ButtonFactory {
 
     public static JButton createSwitchModeButton() {
-        JButton switchModeButton = new JButton("SWITCH MODE");
-        switchModeButton.setBackground(new Color(228, 237, 244, 255));
+        try {
+            JButton switchModeButton = new JButton("SWITCH MODE");
+            switchModeButton.setBackground(new Color(228, 237, 244, 255));
 
-        // Load and resize the icon
-        ImageIcon icon = new ImageIcon(ButtonFactory.class.getResource("../../images/switch-mode.png"));
-        Image img = icon.getImage();
-        Image newImg = img.getScaledInstance(-1, 25, Image.SCALE_SMOOTH); // Resize icon to 15 height
-        icon = new ImageIcon(newImg);
+            // Load and resize the icon
+            ImageIcon icon = new ImageIcon(ButtonFactory.class.getResource("../../images/switch-mode.png"));
+            if (icon.getImage() == null) {
+                throw new Exception("Failed to load switch mode icon");
+            }
 
-        switchModeButton.setIcon(icon);
+            Image img = icon.getImage();
+            Image newImg = img.getScaledInstance(-1, 25, Image.SCALE_SMOOTH); // Resize icon to 15 height
+            icon = new ImageIcon(newImg);
 
-        // Set font, text color, and border
-        switchModeButton.setFont(new Font("Arial", Font.BOLD, 16));
-        switchModeButton.setForeground(Color.BLUE);
-        switchModeButton.setBorder(BorderFactory.createDashedBorder(Color.BLUE, 1, 5, 1, true));
-        switchModeButton.setBorder(BorderFactory.createCompoundBorder(
-                switchModeButton.getBorder(),
-                BorderFactory.createLineBorder(Color.BLACK, 2)  // Outer black border
-        ));
-        switchModeButton.setFocusable(false);
-        switchModeButton.setPreferredSize(new Dimension(400,20));
+            switchModeButton.setIcon(icon);
 
-        return switchModeButton;
+            // Set font, text color, and border
+            switchModeButton.setFont(new Font("Arial", Font.BOLD, 16));
+            switchModeButton.setForeground(Color.BLUE);
+            switchModeButton.setBorder(BorderFactory.createDashedBorder(Color.BLUE, 1, 5, 1, true));
+            switchModeButton.setBorder(BorderFactory.createCompoundBorder(
+                    switchModeButton.getBorder(),
+                    BorderFactory.createLineBorder(Color.BLACK, 2)  // Outer black border
+            ));
+            switchModeButton.setFocusable(false);
+            switchModeButton.setPreferredSize(new Dimension(400,20));
+
+            return switchModeButton;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error creating switch mode button: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return new JButton("SWITCH MODE"); // Fallback without icon
+        }
     }
 
     public static JButton createViewUserManualButton() {
@@ -54,4 +66,3 @@ public class ButtonFactory {
         return ViewUserManualButton;
     }
 }
-

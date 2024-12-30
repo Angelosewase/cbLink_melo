@@ -49,50 +49,76 @@ public class GraphPanel extends JPanel {
 
 
     public void createAndAddGraphs() {
-        // Create buttons
-        credit = new JButton("Credit Graphs");
-        credit.setFocusable(false);
-        credit.setFont(new Font("Arial", Font.BOLD, 18));
-        credit.setBorder(null);
-        credit.setBackground(Color.white);
-        credit.setForeground(new Color(1, 0, 102, 255));
-        debit = new JButton("Debit Graphs");
-        debit.setFocusable(false);
-        debit.setFont(new Font("Arial", Font.BOLD, 18));
-        debit.setBorder(null);
-        debit.setBackground(Color.white);
-        debit.setForeground(new Color(1, 0, 102, 255));
+        try {
+            // Create buttons
+            credit = new JButton("Credit Graphs");
+            credit.setFocusable(false);
+            credit.setFont(new Font("Arial", Font.BOLD, 18));
+            credit.setBorder(null);
+            credit.setBackground(Color.white);
+            credit.setForeground(new Color(1, 0, 102, 255));
+            debit = new JButton("Debit Graphs");
+            debit.setFocusable(false);
+            debit.setFont(new Font("Arial", Font.BOLD, 18));
+            debit.setBorder(null);
+            debit.setBackground(Color.white);
+            debit.setForeground(new Color(1, 0, 102, 255));
 
-        // Create a new panel for buttons
-        buttonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        buttonsPanel.setBackground(Color.WHITE); // Match background with the panel
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, -5, 15)); // Add padding
-        buttonsPanel.add(credit);
-        buttonsPanel.add(debit);
-
-
-        //graph main panel
-
-         graphsMainPanel = new JPanel(new BorderLayout());
-        graphsMainPanel.setBorder(BorderFactory.createLineBorder(new Color(249, 249, 249, 255), 2));
-        graphsMainPanel.setOpaque(true);
+            // Create a new panel for buttons
+            buttonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            buttonsPanel.setBackground(Color.WHITE); // Match background with the panel
+            buttonsPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, -5, 15)); // Add padding
+            buttonsPanel.add(credit);
+            buttonsPanel.add(debit);
 
 
+            //graph main panel
 
-        // Add the buttonsPanel below the graphDesc
-        graphsMainPanel.add(buttonsPanel,BorderLayout.NORTH);
+            graphsMainPanel = new JPanel(new BorderLayout());
+            graphsMainPanel.setBorder(BorderFactory.createLineBorder(new Color(249, 249, 249, 255), 2));
+            graphsMainPanel.setOpaque(true);
 
-        // Create graph panels
-        creditsGraph = new CreditsGraph();
-         debitsGraph = new DebitGraph();
 
-        // Initially display Credit Graph
-        graphsMainPanel.add(creditsGraph, BorderLayout.CENTER);
-        add(graphsMainPanel, BorderLayout.CENTER);
 
-        // Add action listeners for toggling graphs
-        credit.addActionListener(e-> showCreditGraph(e));
-        debit.addActionListener(e-> showDebitGraph(e));
+            // Add the buttonsPanel below the graphDesc
+            graphsMainPanel.add(buttonsPanel,BorderLayout.NORTH);
+
+            // Create graph panels
+            creditsGraph = new CreditsGraph();
+            debitsGraph = new DebitGraph();
+
+            // Initially display Credit Graph
+            graphsMainPanel.add(creditsGraph, BorderLayout.CENTER);
+            add(graphsMainPanel, BorderLayout.CENTER);
+
+            // Add action listeners for toggling graphs
+            credit.addActionListener(e -> {
+                try {
+                    showCreditGraph(e);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this,
+                        "Error displaying credit graph: " + ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            });
+            
+            debit.addActionListener(e -> {
+                try {
+                    showDebitGraph(e);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this,
+                        "Error displaying debit graph: " + ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            });
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                "Error creating graphs: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // Method to show Credit Graph

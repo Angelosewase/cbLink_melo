@@ -58,11 +58,14 @@ public class UIUtils {
     public static JPanel createStatBox(String... data) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        panel.setBorder(BorderFactory.createLineBorder(new Color(0,110,199,255), 3)); // Blue border
+        panel.setBorder(BorderFactory.createLineBorder(new Color(0,110,199,255), 3));// Blue border
+        panel.setOpaque(true);
         panel.setBackground(Color.WHITE);
 
         JPanel mainPanel = new JPanel(new GridLayout(0, 2, 0, 0)); // Dynamic rows, 2 columns for key-value pairs
         mainPanel.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 0)); // Padding inside the grid
+        mainPanel.setOpaque(true);
+        mainPanel.setBackground(Color.WHITE);
 
         // Populate the grid with key-value pairs
         for (int i = 0; i < data.length; i += 2) {

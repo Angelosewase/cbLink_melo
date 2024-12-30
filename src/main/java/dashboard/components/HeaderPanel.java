@@ -10,13 +10,11 @@ public class HeaderPanel extends JPanel {
     private ImageIcon logoImage = new ImageIcon(
             new ImageIcon(HeaderPanel.class.getResource("../../images/logo.png"))
                     .getImage()
-                    .getScaledInstance(-1, 40, Image.SCALE_SMOOTH)
-    );
+                    .getScaledInstance(-1, 40, Image.SCALE_SMOOTH));
     private ImageIcon settingsIcon = new ImageIcon(
             new ImageIcon(HeaderPanel.class.getResource("../../images/settings.png"))
                     .getImage()
-                    .getScaledInstance(-1, 40, Image.SCALE_SMOOTH)
-    );
+                    .getScaledInstance(-1, 40, Image.SCALE_SMOOTH));
 
     private JPanel buttonsPanel = new JPanel();
     private JButton settingsButton = new JButton();
@@ -35,27 +33,60 @@ public class HeaderPanel extends JPanel {
     }
 
     public HeaderPanel() {
-        setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
-        setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(0, 10, 0, 10, new Color(1, 0, 102, 255)), // Thick blue borders on left and right
-                BorderFactory.createEmptyBorder(0, 2, 0, 2) // Padding on left and right
-        ));
+        try {
+            setLayout(new BorderLayout());
+            setBackground(Color.WHITE);
 
-        createLogo();
-        createHeaderPanelButtons();
-        initSettingsIcon();
+            setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createMatteBorder(0, 10, 0, 10, new Color(1, 0, 102, 255)), // Thick blue borders on
+                                                                                              // left and right
+                    BorderFactory.createEmptyBorder(0, 2, 0, 2) // Padding on left and right
+            ));
 
-        add(logo, BorderLayout.WEST);
-        add(buttonsPanel, BorderLayout.CENTER);
-        add(settingsButton, BorderLayout.EAST);
-        setPreferredSize(new Dimension(0, 40));
+            // Load resources
+            loadResources();
+
+            createLogo();
+            createHeaderPanelButtons();
+            initSettingsIcon();
+
+            add(logo, BorderLayout.WEST);
+            add(buttonsPanel, BorderLayout.CENTER);
+            add(settingsButton, BorderLayout.EAST);
+            setPreferredSize(new Dimension(0, 40));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error initializing header: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void loadResources() throws Exception {
+        try {
+            logoImage = new ImageIcon(
+                    new ImageIcon(HeaderPanel.class.getResource("../../images/logo.png"))
+                            .getImage()
+                            .getScaledInstance(-1, 40, Image.SCALE_SMOOTH));
+            if (logoImage.getImage() == null) {
+                throw new Exception("Failed to load logo image");
+            }
+
+            settingsIcon = new ImageIcon(
+                    new ImageIcon(HeaderPanel.class.getResource("../../images/settings.png"))
+                            .getImage()
+                            .getScaledInstance(-1, 40, Image.SCALE_SMOOTH));
+            if (settingsIcon.getImage() == null) {
+                throw new Exception("Failed to load settings icon");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error loading resources: " + e.getMessage());
+        }
     }
 
     private void createHeaderPanelButtons() {
         List<String> buttonLabels = Arrays.asList(
-                "HOME", "INVENTORY STORE", "SALES", "EXPENSES", "REPORTS", "MANAGER"
-        );
+                "HOME", "INVENTORY STORE", "SALES", "EXPENSES", "REPORTS", "MANAGER");
 
         buttonsPanel.setBackground(new Color(0, 0, 101, 255));
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -80,7 +111,6 @@ public class HeaderPanel extends JPanel {
             }
         }
     }
-
 
     private void createLogo() {
         logo.setForeground(new Color(0, 0, 101, 255));
