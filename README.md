@@ -1,4 +1,4 @@
-# CB-Link Melo Software V2
+# CB-Link Melo
 
 A Java-based desktop application built with Swing for business management and analytics.
 
